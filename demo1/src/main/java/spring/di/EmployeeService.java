@@ -7,6 +7,7 @@ public class EmployeeService {
     private EmployeeDao employeeDao;
 
     public EmployeeService(EmployeeDao employeeDao) {
+        System.out.println("EmployeeService constructor: " + employeeDao);
         this.employeeDao = employeeDao;
     }
 

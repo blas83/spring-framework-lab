@@ -1,9 +1,11 @@
 package locations;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 
+@Repository
 public class LocationDao {
 
     private List<Location> locations = Collections.synchronizedList(new ArrayList<>());

@@ -42,6 +42,15 @@ public class Location {
         this.lon = lon;
     }
 
+    public Location() {}
+
+    public Location(Long id, String name, double lat, double lon) {
+        this.id = id;
+        this.name = name;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     @Override
     public String toString() {
         return "Location{" +

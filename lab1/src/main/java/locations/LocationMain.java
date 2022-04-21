@@ -28,6 +28,11 @@ public class LocationMain {
             System.out.println("Törölt location: " + location);
             locations = locationService.listLocations();
             System.out.println("Lista: " + locations);
+
+//            Location location1 = locationService.createLocationTemplate();
+//            Location location2 = locationService.createLocationTemplate();
+//            System.out.println(location1);
+//            System.out.println(location2);
         }
     }
 }

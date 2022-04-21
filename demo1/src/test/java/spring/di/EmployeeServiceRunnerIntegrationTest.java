@@ -16,9 +16,15 @@ public class EmployeeServiceRunnerIntegrationTest {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private Employee2Service employee2Service;
+
     @Test
     public void testSaveThanList() {
         employeeService.saveEmployee("John Doe");
         assertEquals(List.of("John Doe"), employeeService.listEmployees());
+
+        employee2Service.saveEmployee("Jack Doe");
+        assertEquals(List.of("Jack Doe"), employee2Service.listEmployees());
     }
 }
