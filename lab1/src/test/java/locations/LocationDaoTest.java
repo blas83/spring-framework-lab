@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LocationDaoTest {
 
-    private LocationDao locationDao = new LocationDao();
+    private LocationDao locationDao = new ListLocationDao();
 
     @Test
     public void testSave() {

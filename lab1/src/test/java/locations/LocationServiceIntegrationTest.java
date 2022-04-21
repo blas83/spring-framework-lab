@@ -20,6 +20,9 @@ public class LocationServiceIntegrationTest {
     @Autowired
     private LocationService locationService;
 
+    @Autowired
+    private NameChangeListener nameChangeListener;
+
     @BeforeEach
     public void setUp() {
         System.out.println("Clear location list.");
@@ -74,5 +77,18 @@ public class LocationServiceIntegrationTest {
         boolean isLocation = locationService.getLocationById(moszkva.getId()).isPresent();
 
         assertEquals(false, isLocation);
+    }
+
+    @Test
+    public void testUpdateThanFind2() {
+        System.out.println(locationService.listLocations());
+        locationService.createLocation("Budapest", 1,2);
+        Location mexico = locationService.createLocation("Mexico", 3, 4);
+        locationService.createLocation("Tokio", 5,6);
+
+        Location location = locationService.updateLocation(mexico.getId(), "Mexico új", 33, 44).get();
+
+        assertEquals(33, location.getLat());
+        assertEquals(List.of("Mexico -> Mexico új"), nameChangeListener.getChanges());
     }
 }
