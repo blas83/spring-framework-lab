@@ -1,19 +1,22 @@
 package spring.di;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.core.env.Environment;
 
 import java.util.List;
 
 public class EmployeeService {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private EmployeeDao employeeDao;
 
     private ApplicationEventPublisher applicationEventPublisher;
 
     public EmployeeService(EmployeeDao employeeDao) {
-        System.out.println("EmployeeService constructor: " + employeeDao);
+        logger.info("EmployeeService constructor: " + employeeDao);
         this.employeeDao = employeeDao;
     }
 
@@ -21,11 +24,11 @@ public class EmployeeService {
         String trimmedName = name.trim();
 
         if (applicationEventPublisher != null) {
-            System.out.println("applicationEventPublisher van.");
+            logger.info("applicationEventPublisher van.");
             EmployeeHasCreatedEvent event = new EmployeeHasCreatedEvent(this, name);
             applicationEventPublisher.publishEvent(event);
         } else {
-            System.out.println("Valamiért nem találja.");
+            logger.info("Valamiért nem találja.");
         }
         employeeDao.saveEmployee(trimmedName);
     }

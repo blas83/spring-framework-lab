@@ -1,5 +1,7 @@
 package locations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,6 +13,8 @@ import java.util.Optional;
 @Service
 public class LocationService {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    
     private LocationDao locationDao;
 
     private ApplicationContext context;
@@ -47,7 +51,7 @@ public class LocationService {
             updatedLocation = locationDao.update(id, name, lat, lon);
             LocationMemento newLocation = new LocationMemento(updatedLocation.get());
             if (applicationEventPublisher != null) {
-                System.out.println("applicationEventPublisher van.");
+                logger.info("applicationEventPublisher van.");
                 LocationHasChangedEvent event = new LocationHasChangedEvent(this, oldLocation, newLocation);
                 applicationEventPublisher.publishEvent(event);
             }
@@ -66,5 +70,9 @@ public class LocationService {
     @Autowired(required = false)
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+    public void clearLocations() {
+        locationDao.deleteAll();
     }
 }

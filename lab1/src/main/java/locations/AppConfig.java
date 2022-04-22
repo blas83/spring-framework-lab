@@ -6,7 +6,9 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource("classpath:/application.properties")
+@EnableAspectJAutoProxy
 @ComponentScan(basePackageClasses = AppConfig.class)
+
 public class AppConfig {
 
     @Autowired

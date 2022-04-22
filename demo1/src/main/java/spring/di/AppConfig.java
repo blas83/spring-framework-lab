@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 //@Lazy
 @PropertySource("classpath:/application.properties")
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Bean
@@ -51,4 +52,15 @@ public class AppConfig {
     public Employee2Service employee2Service() {
         return new Employee2Service(employeeDao());
     }
+
+    @Bean
+    public CounterAspect counterAspect() {
+        return new CounterAspect();
+    }
+
+    @Bean
+    public BenchmarkAspect benchmarkAspect() {
+        return new BenchmarkAspect();
+    }
+
 }

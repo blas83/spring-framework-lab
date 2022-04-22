@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.w3c.dom.css.Counter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,9 @@ public class LocationServiceIntegrationTest {
 
     @Autowired
     private NameChangeListener nameChangeListener;
+
+    @Autowired
+    CounterAspect counterAspect;
 
     @BeforeEach
     public void setUp() {
@@ -81,7 +85,10 @@ public class LocationServiceIntegrationTest {
 
     @Test
     public void testUpdateThanFind2() {
-        System.out.println(locationService.listLocations());
+        locationService.clearLocations();
+        counterAspect.resetCounter();
+
+        System.out.println("Locations: " + locationService.listLocations());
         locationService.createLocation("Budapest", 1,2);
         Location mexico = locationService.createLocation("Mexico", 3, 4);
         locationService.createLocation("Tokio", 5,6);
@@ -90,5 +97,7 @@ public class LocationServiceIntegrationTest {
 
         assertEquals(33, location.getLat());
         assertEquals(List.of("Mexico -> Mexico új"), nameChangeListener.getChanges());
+
+        assertEquals(1, counterAspect.getCount('B'));
     }
 }
